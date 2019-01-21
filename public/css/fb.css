@@ -1,0 +1,23 @@
+header{
+    position: fixed; /* ヘッダーを固定(これが重要) */
+    top: 0; /* 固定する位置 */
+    left: 0; /* 固定する位置 */
+    right: 0;  /* 固定する位置 */
+}
+
+body {
+    padding: 70px 0px 0px 0px;	/* bodyの内側余白を指定する(上:右:下:左) */
+}
+
+.Contents {
+    background-color: #99cc00;
+    position: fixed;
+    width: 100%;	/* コンテンツの横幅を指定する */
+    overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
+}
+
+.main {
+    padding: 80px 0px 0px 0px;
+    width: 100%;	/* コンテンツの横幅を指定する */
+    overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
+}

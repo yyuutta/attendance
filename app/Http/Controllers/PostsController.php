@@ -7,9 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\User;
-
 use App\Post;
-
 use Carbon\Carbon;
 
 class PostsController extends Controller
@@ -91,7 +89,6 @@ class PostsController extends Controller
     
     public function store(Request $request)
     {
-        
         for($i=0; $i<count($request->date_name); $i++) {
             Post::updateOrCreate(['user_id' => \Auth::id(), 'date_id' => $request->date_name[$i]],
             ['user_id' => \Auth::id(),
@@ -100,6 +97,8 @@ class PostsController extends Controller
             'finish' => $request->out[$i],
             'rest' => $request->rest[$i],
             'work_time' => $request->out[$i] - $request->go[$i] - $request->rest[$i],
+            'absent' => 'nothing',
+            'coment' => 'nothing',
             'note' => 'nothing']);
         }
         return redirect()->back();

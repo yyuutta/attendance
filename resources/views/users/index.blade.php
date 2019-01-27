@@ -38,7 +38,11 @@
             @else
                 <td>
             @endif
-            {{ $date->day }}
+            @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6)
+                <font color="lightgrey">{{$date->day}}</font>
+            @else
+                {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y%m%d')]) !!}
+            @endif
                 </td>
             @if ($date->dayOfWeek == 6)
             </tr>

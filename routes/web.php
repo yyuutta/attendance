@@ -23,6 +23,7 @@ Route::post('login', 'Auth\LoginController@login')->name('login.post');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout.get');
 
 Route::group(['middleware' => ['auth']], function () {
-    Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'create']]); //ユーザー編集(edit, update)や退会(destroy)はココ
+    Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'create', 'store']]);
+    Route::get('monthly', 'UsersController@monthly')->name('users.monthly');
     Route::resource('posts', 'PostsController', ['only' => ['create', 'store', 'destroy']]);
 });

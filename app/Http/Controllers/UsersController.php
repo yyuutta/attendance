@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\User;
 use App\Post;
-
 use Carbon\Carbon;
 
 class UsersController extends Controller
@@ -70,4 +69,30 @@ class UsersController extends Controller
 
         return view('users.show', $data);
     }
+    
+   public function monthly(Request $request)
+   {
+        $users = User::all();
+        $posts = Post::where('date_id', $request->id)->get();
+        
+        $data = [
+            'users' => $users,
+            'posts' => $posts,
+        ];
+        return view('users.monthly', $data);
+    }
+    
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'coment' => 'required|max:191',
+        ]);
+        
+        for($i=0; $i<count($request->post_id); $i++) {
+            Post::updateOrCreate(['id' => $request->post_id[$i]],
+            ['coment' => $request->coment[$i]]);
+        }
+        return redirect()->back();
+    }
+    
 }

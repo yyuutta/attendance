@@ -30,6 +30,13 @@ class PostsController extends Controller
             $yaer_ago = $now->copy()->subYear();
             $year_add = $now->copy()->addYear();
             $comment = Inform::first();
+            if(!$comment) {
+                $comment = new Inform;
+                $comment->comment = 'first';
+                $comment->save();
+                $comment = Inform::first();
+            }
+            
             $holidays = Yasumi::create('Japan', $now->year, 'ja_JP');
             
             $data = [

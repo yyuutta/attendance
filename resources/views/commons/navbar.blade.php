@@ -16,9 +16,7 @@
                         {{-- <li>{!! link_to_route('users.index', 'Users') !!}</li> --}}
                         <li class="dropdown">
                             {{-- <ul class="dropdown-menu"> --}}
-                                @if(\Auth::user()->authority == 1)
-                                    <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
-                                @endif
+                                <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
                             {{-- </ul> --}}
                         </li>

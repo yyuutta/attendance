@@ -80,7 +80,6 @@ class UsersController extends Controller
                 'user' => $finduser,
                 'posts' => $posts,
             ];
-            //$data += $this->counts($user);
             return view('users.show', $data);
         } else {
             return redirect()->back();

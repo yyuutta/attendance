@@ -1,4 +1,3 @@
-@if (count($user) > 0)
 @extends('layouts.app')
 
 @section('content')
@@ -85,4 +84,3 @@
 </div>
 </div>
 @endsection
-@endif

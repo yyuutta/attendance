@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="text-header">
+    @include('posts.inform', ['dates' => $dates])
+ 
     {!! Form::open(['route' => 'posts.create', 'method' => 'get', 'class' => 'form-inline']) !!}
         {{Form::select('year', [
                $yaer_ago->year => $yaer_ago->year . "年",
@@ -43,6 +45,16 @@
             {!! Form::open(['route' => 'posts.store']) !!}
             <tbody>
                 @foreach ($dates as $date)
+                
+                @foreach($holidays as $holiday)
+                    @if($date->formatLocalized('%Y%m%d') == $holiday->format('Ymd'))
+                        <?php $holidayname = $holiday->getName(); ?>
+                        <?php break; ?>
+                    @else
+                        <?php $holidayname = null; ?>
+                    @endif
+                @endforeach
+                
                     @foreach ($posts as $post)
                         @if ($date->formatLocalized('%Y%m%d') == $post->date_id)
                             <?php $go = $post->begin; ?>
@@ -51,8 +63,8 @@
                         @endif
                     @endforeach
                     <tr>
-                    @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6)
-                        <td><font color="lightgrey">{{$date->formatLocalized('%d(%a)')}}</font></td>
+                    @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6 || $holidayname != null)
+                        <td><font color="lightgrey">{{$date->formatLocalized('%d(%a)')}}{{$holidayname}}</font></td>
                         <div class="form-group">
                             <td>
                             </td>
@@ -66,8 +78,8 @@
                             </td>
                         </div>
                     @else
-                        @include('posts.check', ['date' => $date])
-                        @if($now->day <= 27 && $month == $date->isNextMonth())
+                        @include('posts.check', ['date' => $date, 'holidayname' => $holidayname])
+                        @if($now->day <= 21 && $month == $date->isNextMonth())
                             @include('posts.posts_true', ['date' => $date])
                         @else
                             @include('posts.posts_false', ['date' => $date])

@@ -4,7 +4,7 @@
 @section('content')
     @if (Auth::check())
         <?php $user = Auth::user(); ?>
-        {{ $user->name }}
+        エラー　{{ $user->name }}さん、管理者に報告をお願いします。
     @else
         <div class="center jumbotron">
             <div class="text-center">

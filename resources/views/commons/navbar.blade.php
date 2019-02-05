@@ -8,19 +8,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">FB</a>
+                <a class="navbar-brand" href="{{route('users.index')}}">FB</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
                         {{-- <li>{!! link_to_route('users.index', 'Users') !!}</li> --}}
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
-                                <li>{!! link_to_route('users.index', 'TOP') !!}</li>
+                            {{-- <ul class="dropdown-menu"> --}}
+                                @if(\Auth::user()->authority == 1)
+                                    <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
+                                @endif
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
-                                
-                            </ul>
+                            {{-- </ul> --}}
                         </li>
                     @else
                         <li>{!! link_to_route('signup.get', 'Signup') !!}</li>

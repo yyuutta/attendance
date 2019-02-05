@@ -8,7 +8,9 @@ use App\Http\Controllers\Controller;
 
 use App\User;
 use App\Post;
+use App\Inform;
 use Carbon\Carbon;
+use \Yasumi\Yasumi;
 
 class PostsController extends Controller
 {
@@ -27,6 +29,8 @@ class PostsController extends Controller
             $month = $now->month;
             $yaer_ago = $now->copy()->subYear();
             $year_add = $now->copy()->addYear();
+            $comment = Inform::first();
+            $holidays = Yasumi::create('Japan', $now->year, 'ja_JP');
             
             $data = [
                 'user' => $user,
@@ -40,6 +44,8 @@ class PostsController extends Controller
                 'month' => $month,
                 'yaer_ago' => $yaer_ago,
                 'year_add' => $year_add,
+                'comment' => $comment,
+                'holidays' => $holidays,
             ];
             
             $data += $this->counts($user);
@@ -48,13 +54,14 @@ class PostsController extends Controller
             return view('welcome');
         }
     }
-    
+ /*    
     public function show($id)
     {
         $user = \Auth::user();
         $posts = $user->posts()->orderBy('date_id', 'asc')->get();
         
     }
+*/    
     public function create(Request $request)
     {
         $user = \Auth::user();
@@ -68,6 +75,8 @@ class PostsController extends Controller
         $month = $request->month;
         $yaer_ago = $now->copy()->subYear();
         $year_add = $now->copy()->addYear();
+        $comment = Inform::first();
+        $holidays = Yasumi::create('Japan', $year, 'ja_JP');
         
         $data = [
             'user' => $user,
@@ -81,6 +90,8 @@ class PostsController extends Controller
             'month' => $month,
             'yaer_ago' => $yaer_ago,
             'year_add' => $year_add,
+            'comment' => $comment,
+            'holidays' => $holidays,
         ];
         
         $data += $this->counts($user);
@@ -101,18 +112,6 @@ class PostsController extends Controller
             'coment' => 'nothing',
             'note' => 'nothing']);
         }
-        return redirect()->back();
-    }
-    
-    public function destroy($id)
-    {
-/*
-        $post = \App\Post::find($id);
-
-        if (\Auth::id() === $post->user_id) {
-            $post->delete();
-        }
-*/
         return redirect()->back();
     }
 }

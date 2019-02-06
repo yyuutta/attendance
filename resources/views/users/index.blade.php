@@ -55,12 +55,12 @@
             @endif
             <div class="day_height">
             @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6)
-                <div class="day_height"><font color="lightgrey">{{$date->day}},{{$holidayname}}</font>
+                <div class="day_height"><font color="lightgrey">{{$date->day}} {{$holidayname}}</font>
             @else
                 @if($holidayname == null)
                     {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y%m%d')]) !!}
                 @else
-                    <font color="lightgrey">{{$date->day}},{{$holidayname}}</font>
+                    <font color="lightgrey">{{$date->day}} {{$holidayname}}</font>
                 @endif
             @endif
             </div>

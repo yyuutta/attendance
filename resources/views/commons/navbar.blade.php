@@ -17,8 +17,10 @@
                         <li class="dropdown">
                             {{-- <ul class="dropdown-menu"> --}}
                                 <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
-                                <li>{!! link_to_route('login', 'Login') !!}</li>
-                                <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
+                                @if(Auth::user()->authority == 1)
+                                    <li>{!! link_to_route('login', 'Login') !!}</li>
+                                    <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
+                                @endif
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
                             {{-- </ul> --}}
                         </li>

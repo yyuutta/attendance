@@ -114,7 +114,7 @@ class PostsController extends Controller
             'begin' => $request->go[$i],
             'finish' => $request->out[$i],
             'rest' => $request->rest[$i],
-            'work_time' => $request->out[$i] - $request->go[$i] - $request->rest[$i],
+            'work_time' => floor($request->out[$i]) - floor($request->go[$i]) - floor($request->rest[$i]),
             'absent' => 'nothing',
             'coment' => 'nothing',
             'note' => 'nothing']);

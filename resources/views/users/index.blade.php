@@ -27,7 +27,9 @@
             <h3>{{ $i }}月</h3>
             <tr>
               @foreach (['日', '月', '火', '水', '木', '金', '土'] as $dayOfWeek)
-              <th>{{ $dayOfWeek }}</th>
+              
+                  <th class="col-xs-1">{{ $dayOfWeek }}</th>
+              
               @endforeach
             </tr>
           </thead>
@@ -51,16 +53,17 @@
             @else
                 <td>
             @endif
-        
+            <div class="day_height">
             @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6)
-                <font color="lightgrey">{{$date->day}}<br><font size="" color="lightgrey">{{$holidayname}}</font></font>
+                <div class="day_height"><font color="lightgrey">{{$date->day}},{{$holidayname}}</font>
             @else
                 @if($holidayname == null)
                     {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y%m%d')]) !!}
                 @else
-                    <font color="lightgrey">{{$date->day}}<br><font size="" color="lightgrey">{{$holidayname}}</font></font>
+                    <font color="lightgrey">{{$date->day}},{{$holidayname}}</font>
                 @endif
             @endif
+            </div>
                 </td>
             @if ($date->dayOfWeek == 6)
             </tr>

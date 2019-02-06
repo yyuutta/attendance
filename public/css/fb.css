@@ -21,3 +21,14 @@ body {
     width: 100%;	/* コンテンツの横幅を指定する */
     overflow: auto; /* コンテンツの表示を自動に設定（スクロール） */
 }
+
+#header {
+  z-index: 9999;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.day_height {
+    padding: 5px;
+}

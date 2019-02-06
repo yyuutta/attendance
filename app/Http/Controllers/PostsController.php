@@ -58,7 +58,7 @@ class PostsController extends Controller
             $data += $this->counts($user);
             return view('posts.show', $data);
         }else {
-            return view('welcome');
+            return view('auth.login');
         }
     }
  /*    

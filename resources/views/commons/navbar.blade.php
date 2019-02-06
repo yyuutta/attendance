@@ -1,4 +1,4 @@
-<header>
+<header id="header">
     <nav class="navbar navbar-inverse navbar-static-top">
         <div class="container">
             <div class="navbar-header">
@@ -17,12 +17,14 @@
                         <li class="dropdown">
                             {{-- <ul class="dropdown-menu"> --}}
                                 <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
+                                <li>{!! link_to_route('login', 'Login') !!}</li>
+                                <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
                                 <li>{!! link_to_route('logout.get', 'Logout') !!}</li>
                             {{-- </ul> --}}
                         </li>
                     @else
-                        <li>{!! link_to_route('signup.get', 'Signup') !!}</li>
-                        <li>{!! link_to_route('login', 'Login') !!}</li>
+                        {{-- <li>{!! link_to_route('signup.get', 'Signup') !!}</li> --}}
+                        {{-- <li>{!! link_to_route('login', 'Login') !!}</li> --}}
                     @endif
                 </ul>
             </div>

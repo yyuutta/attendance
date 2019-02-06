@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangePostsTable extends Migration
+class Change2PostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -15,6 +15,7 @@ class ChangePostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->float('rest')->change();
+            $table->float('work_time')->change();
         });
     }
 
@@ -27,6 +28,7 @@ class ChangePostsTable extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             $table->integer('rest')->change();
+            $table->integer('work_time')->change();
         });
     }
 }

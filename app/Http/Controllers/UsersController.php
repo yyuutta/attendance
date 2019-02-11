@@ -133,7 +133,7 @@ class UsersController extends Controller
             $finduser->save();
             return redirect()->back();
         } else {
-            return view('welcome');
+            return redirect()->back();
         }
     }
     
@@ -142,6 +142,7 @@ class UsersController extends Controller
         $user = \Auth::user();
         if ($user->authority == 1) {
             $finduser = User::find($id);
+            $finduser->posts()->delete();
             $finduser->delete();
             return redirect('/users');
         } else {

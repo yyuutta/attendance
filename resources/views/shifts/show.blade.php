@@ -4,7 +4,7 @@
 <div class="text-header">
     @include('posts.inform', ['dates' => $dates])
  
-    {!! Form::open(['route' => 'posts.create', 'method' => 'get', 'class' => 'form-inline']) !!}
+    {!! Form::open(['route' => 'shifts.create', 'method' => 'get', 'class' => 'form-inline']) !!}
         {{Form::select('year', [
                $yaer_ago->year => $yaer_ago->year . "年",
                $now->year => $now->year . "年",
@@ -26,20 +26,20 @@
                '12' => 12 . "月",]
                , $month
         )}}
+    {{Form::hidden('userid', $user->id)}}
     {!! Form::submit('取得', ['class' => 'btn btn-primary btn-xs']) !!}
     {!! Form::close() !!}
 </div>
-<br>
-<br>
-    {!! Form::open(['route' => 'posts.store']) !!}
-    
-    @if($year == $now->year && $now->day <= 21 && $month == $now->month + 1)
-        {!! Form::submit('更新', ['class' => 'btn btn-danger btn-lg']) !!}
-    @endif
+<div class="text-center">
+    <div class="main">
+    <h2>ID：{{$user->id}} / {{$user->name}}さんのシフト調整ページ</h2>
+    <br>
+    <div class="row">
+        <div class="col-xs-12">
+        {!! Form::open(['route' => 'shifts.store']) !!}
         
-        <div class="text-center">
-        <div class="container">
-        <div class="row">
+            {!! Form::submit('更新', ['class' => 'btn btn-danger btn-lg']) !!}
+        
         <table class="table table-bordered">
             <thead>
             <tr>
@@ -47,6 +47,8 @@
                 <th>出勤</th>
                 <th>退勤</th>
                 <th>休憩</th>
+                <th>勤務時間</th>
+                <th>備考</th>
             </th>
             </thead>
             <tbody>
@@ -66,12 +68,20 @@
                             <?php $go = $post->begin; ?>
                             <?php $out = $post->finish; ?>
                             <?php $rest = $post->rest; ?>
+                            <?php $work_time = $post->work_time; ?>
+                            <?php $coment = $post->coment; ?>
                         @endif
                     @endforeach
                     <tr>
                     @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6 || $holidayname != null)
+                        <td><font color="lightgrey">{{$date->formatLocalized('%d(%a)')}}{{$holidayname}}</font></td>
                         <div class="form-group">
-                            <td><font color="lightgrey">{{$date->formatLocalized('%d(%a)')}}{{$holidayname}}</font></td>
+                            <td>
+                            </td>
+                        </div>
+                        <div class="form-group">
+                            <td>
+                            </td>
                         </div>
                         <div class="form-group">
                             <td>
@@ -87,18 +97,26 @@
                         </div>
                     @else
                         @include('posts.check', ['date' => $date, 'holidayname' => $holidayname])
-                        @if($year == $now->year && $now->day <= 21 && $month == $date->isNextMonth())
-                            @include('posts.posts_true', ['date' => $date])
-                        @else
-                            @include('posts.posts_false', ['date' => $date])
-                        @endif
+                        @include('posts.posts_true', ['date' => $date])
+                        <div class="form-group">
+                            <td>
+                                {{$work_time}}
+                            </td>
+                        </div>
+                        <div class="form-group">
+                            <td>
+                                {{$coment}}
+                            </td>
+                        </div>
                     @endif
                     </tr>
                 @endforeach
             </tbody>
         </table>
-        </div>
-        </div>
-        </div>
+        {{Form::hidden('userid', $user->id)}}
         {!! Form::close() !!}
+        </div>
+    </div>
+    </div>
+</div>
 @endsection

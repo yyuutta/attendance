@@ -12,6 +12,7 @@
         <thead>
             <tr>
                 <th>スタッフ</th>
+                <th>エラー</th>
                 <th>出勤</th>
                 <th>退勤</th>
                 <th>休憩</th>
@@ -34,6 +35,15 @@
                         @endif
                     @endforeach
                     <div class="form-group">
+                        @if($post->begin > $post->finish || $post->begin == 0 && $post->finish != 0 || $post->begin == 0 && $post->finish == 0 && $post->rest != 0)
+                                <td class="bg-danger"><font color="red">★不整合登録★</font></td>
+                        @else
+                            @if($post->begin != 0 && $post->finish - $post->begin >= 6 && $post->rest != 1)
+                                <td class="bg-danger"><font color="red">★休憩1ｈ必須★</font></td>
+                            @else
+                                <td>OK</td>
+                            @endif
+                        @endif
                         <td>{{$post->begin}}時</td>
                         <td>{{$post->finish}}時</td>
                         <td>{{$post->rest}}h</td>

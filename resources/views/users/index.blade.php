@@ -58,7 +58,7 @@
                 <div class="day_height"><font color="lightgrey">{{$date->day}} {{$holidayname}}</font>
             @else
                 @if($holidayname == null)
-                    {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y%m%d')]) !!}
+                    {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y/%m/%d')]) !!}
                 @else
                     <font color="lightgrey">{{$date->day}} {{$holidayname}}</font>
                 @endif

@@ -15,7 +15,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $users = User::all();
             $now = Carbon::now()->copy();
             $year = $now->year;
@@ -44,7 +44,7 @@ class UsersController extends Controller
    public function create(Request $request)
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $users = User::all();
             $now = Carbon::now()->copy();
             $year = $request->year;
@@ -73,12 +73,10 @@ class UsersController extends Controller
     public function show($id)
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $finduser = User::find($id);
-            $posts = $finduser->posts()->orderBy('created_at', 'desc')->paginate(15);
             $data = [
                 'user' => $finduser,
-                'posts' => $posts,
             ];
             return view('users.show', $data);
         } else {
@@ -89,11 +87,10 @@ class UsersController extends Controller
    public function monthly(Request $request)
    {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $users = User::all();
             $posts = Post::where('date_id', $request->id)->get();
             $date_no = $request->id;
-            
             $data = [
                 'users' => $users,
                 'posts' => $posts,
@@ -108,7 +105,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $this->validate($request, [
                 'coment' => 'required|max:191',
             ]);
@@ -124,23 +121,29 @@ class UsersController extends Controller
     
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required',
+        ]);
+            
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $finduser = User::find($id);
+            $finduser->authority = $request->authority;
             $finduser->name = $request->name;
             $finduser->email = $request->email;
-            $finduser->authority = $request->authority;
+            $finduser->leave = $request->leave;
             $finduser->save();
             return redirect()->back();
         } else {
             return redirect()->back();
         }
     }
-    
+/*
     public function destroy($id)
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $finduser = User::find($id);
             $finduser->posts()->delete();
             $finduser->delete();
@@ -149,4 +152,5 @@ class UsersController extends Controller
             return redirect()->back();
         }
     }
+*/
 }

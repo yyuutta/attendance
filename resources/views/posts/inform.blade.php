@@ -1,4 +1,4 @@
-@if($user->authority == 1)
+@if($user->authority == 2)
     {!! Form::model($comment, ['route' => ['informs.update', $comment->id], 'method' => 'put']) !!}
     <div class="form-group">
         {!! Form::textarea('comment') !!}

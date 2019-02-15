@@ -37,8 +37,8 @@
         {!! Form::submit('更新', ['class' => 'btn btn-danger btn-lg']) !!}
     @endif
         
-        <div class="text-center">
-        <div class="container">
+    <div class="text-center">
+    <div class="container">
         <div class="row">
         <table class="table table-bordered">
             <thead>
@@ -98,7 +98,7 @@
             </tbody>
         </table>
         </div>
-        </div>
-        </div>
+    </div>
+    </div>
         {!! Form::close() !!}
 @endsection

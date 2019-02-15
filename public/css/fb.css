@@ -32,3 +32,17 @@ body {
 .day_height {
     padding: 5px;
 }
+
+/* ユーザー項目を表示したり非表示にしたりする */
+.show-button{
+    display: inline-block;
+    cursor: pointer;
+}
+.show-button:hover{
+    background: black;
+    color: white;
+    transition: .3s;
+}
+.hide-area{
+    display: none;
+}

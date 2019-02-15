@@ -1,6 +1,13 @@
-// セレクトボックスの表示
-$('select').each(function () {
-    var select = $(this);
-    var selected = $(this).data('selected');
-    select.children('option[value="' + selected + '"]').prop('selected', true);
+$(function(){
+    $(".show-button").click(function(){
+        var $this = $(this);
+        var $target = $this.next();
+        if($target.css('display') == 'none'){
+            $target.slideDown(400);
+        
+        }else{
+            $target.slideUp(400);
+
+        };
+    });
 });

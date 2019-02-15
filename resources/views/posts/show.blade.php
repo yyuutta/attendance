@@ -38,7 +38,7 @@
     @endif
         
     <div class="text-center">
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
         <table class="table table-bordered">
             <thead>

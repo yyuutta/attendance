@@ -20,43 +20,50 @@ class PostsController extends Controller
         if (\Auth::check()) {
             $user = \Auth::user();
             $posts = $user->posts()->orderBy('date_id', 'asc')->get();
-            $now = Carbon::now()->copy();
-            $dates = $user->getCalendarDates($now->year,$now->month);
-            $go = 0;
-            $out = 0;
-            $rest = 0;
-            $year = $now->year;
-            $month = $now->month;
-            $yaer_ago = $now->copy()->subYear();
-            $year_add = $now->copy()->addYear();
-            $comment = Inform::first();
-            if(!$comment) {
-                $comment = new Inform;
-                $comment->comment = 'first';
-                $comment->save();
+            
+            //退社ユーザーはここではじく
+            if ($user->leave != null) {
+                return redirect()->intended('/logout');
+            } else {
+                $now = Carbon::now()->copy();
+                $dates = $user->getCalendarDates($now->year,$now->month);
+                $go = 0;
+                $out = 0;
+                $rest = 0;
+                $year = $now->year;
+                $month = $now->month;
+                $yaer_ago = $now->copy()->subYear();
+                $year_add = $now->copy()->addYear();
                 $comment = Inform::first();
+                if(!$comment) {
+                    $comment = new Inform;
+                    $comment->comment = 'first';
+                    $comment->save();
+                    $comment = Inform::first();
+                }
+                
+                $holidays = Yasumi::create('Japan', $now->year, 'ja_JP');
+                
+                $data = [
+                    'user' => $user,
+                    'posts' => $posts,
+                    'dates' => $dates,
+                    'now' => $now,
+                    'out' => $out,
+                    'go' => $go,
+                    'rest' => $rest,
+                    'year' => $year,
+                    'month' => $month,
+                    'yaer_ago' => $yaer_ago,
+                    'year_add' => $year_add,
+                    'comment' => $comment,
+                    'holidays' => $holidays,
+                ];
+                
+                $data += $this->counts($user);
+                return view('posts.show', $data);
             }
             
-            $holidays = Yasumi::create('Japan', $now->year, 'ja_JP');
-            
-            $data = [
-                'user' => $user,
-                'posts' => $posts,
-                'dates' => $dates,
-                'now' => $now,
-                'out' => $out,
-                'go' => $go,
-                'rest' => $rest,
-                'year' => $year,
-                'month' => $month,
-                'yaer_ago' => $yaer_ago,
-                'year_add' => $year_add,
-                'comment' => $comment,
-                'holidays' => $holidays,
-            ];
-            
-            $data += $this->counts($user);
-            return view('posts.show', $data);
         }else {
             return view('auth.login');
         }

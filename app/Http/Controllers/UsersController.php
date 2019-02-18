@@ -15,7 +15,7 @@ class UsersController extends Controller
     public function index()
     {
         $user = \Auth::user();
-        if ($user->authority == 2) {
+        if ($user->authority == 2 || $user->authority == 1) {
             $users = User::all();
             $now = Carbon::now()->copy();
             $year = $now->year;
@@ -44,7 +44,7 @@ class UsersController extends Controller
    public function create(Request $request)
     {
         $user = \Auth::user();
-        if ($user->authority == 2) {
+        if ($user->authority == 2 || $user->authority == 1) {
             $users = User::all();
             $now = Carbon::now()->copy();
             $year = $request->year;
@@ -87,7 +87,7 @@ class UsersController extends Controller
    public function monthly(Request $request)
    {
         $user = \Auth::user();
-        if ($user->authority == 2) {
+        if ($user->authority == 2 || $user->authority == 1) {
             $users = User::all();
             $posts = Post::where('date_id', $request->id)->get();
             $date_no = $request->id;
@@ -105,7 +105,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $user = \Auth::user();
-        if ($user->authority == 2) {
+        if ($user->authority == 2 || $user->authority == 1) {
             $this->validate($request, [
                 'coment' => 'required|max:191',
             ]);

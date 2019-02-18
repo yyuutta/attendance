@@ -15,7 +15,7 @@ class InformsController extends Controller
     public function update(Request $request, $id)
     {
         $user = \Auth::user();
-        if ($user->authority == 1) {
+        if ($user->authority == 2) {
             $inform = Inform::find($id);
             $inform->comment = $request->comment;
             $inform->save();

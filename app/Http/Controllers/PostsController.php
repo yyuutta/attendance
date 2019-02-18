@@ -24,6 +24,10 @@ class PostsController extends Controller
             //退社ユーザーはここではじく
             if ($user->leave != null) {
                 return redirect()->intended('/logout');
+            //登録パス(Allow)が合ってなければユーザー削除
+            } elseif ($user->allow == 'NG') {
+                $user->delete();
+                return redirect()->back();
             } else {
                 $now = Carbon::now()->copy();
                 $dates = $user->getCalendarDates($now->year,$now->month);

@@ -62,12 +62,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+
+        if ($data['allow'] != 'fresh01') {
+            $re_set = 'NG';
+        } else {
+            $re_set = 'OK';
+        }
+        
+            return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'authority' => 2,
             'leave' => null,
-        ]);
+            'allow' => $re_set,
+            ]);
     }
 }

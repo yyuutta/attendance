@@ -1,4 +1,4 @@
-@if($go > $out || $go == 0 && $out != 0 || $go == 0 && $out == 0 && $rest != 0)
+@if($go > 0 and $go == $out || $go > $out || $go == 0 && $out != 0 || $go == 0 && $out == 0 && $rest != 0)
     <div class="form-group">
         <td class="bg-danger"><font color="red">★不整合登録★{{$date->formatLocalized('%d(%a)')}}{{$holidayname}}</font></td>
     </div>

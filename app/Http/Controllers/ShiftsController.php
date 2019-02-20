@@ -112,11 +112,6 @@ class ShiftsController extends Controller
     {
         if (\Auth::user()->authority == 2) {
             for($i=0; $i<count($request->date_name); $i++) {
-                if($request->coment[$i] == 0) {
-                    $coment_up = 'nothing';
-                } else {
-                    $coment_up = $request->coment[$i];
-                }
                 Post::updateOrCreate(['user_id' => $request->userid, 'date_id' => $request->date_name[$i]],
                 ['user_id' => $request->userid,
                 'date_id' => $request->date_name[$i],
@@ -124,7 +119,7 @@ class ShiftsController extends Controller
                 'finish' => $request->out[$i],
                 'rest' => $request->rest[$i],
                 'work_time' => $request->out[$i] - $request->go[$i] - $request->rest[$i],
-                'coment' => $coment_up,
+                //'coment' => 'nothing',
                 'absent' => 'nothing',
                 'note' => 'nothing']);
             }

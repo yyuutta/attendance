@@ -39,7 +39,7 @@
                                 @endif
                             @endforeach
                             <div class="form-group">
-                                @if($post->finish - $post->begin - $post->rest <= 0 || $post->begin > 0 and $post->begin == $post->finish || $post->begin > $post->finish || $post->begin == 0 && $post->finish != 0 || $post->begin == 0 && $post->finish == 0 && $post->rest != 0)
+                                @if($post->begin == 0 && $post->finish or $post->rest > 0 || $post->finish - $post->begin - $post->rest <= 0 || $post->begin > 0 and $post->begin == $post->finish || $post->begin > $post->finish || $post->begin == 0 && $post->finish != 0 || $post->begin == 0 && $post->finish == 0 && $post->rest != 0)
                                         <td class="bg-danger"><font color="red">★不整合登録★</font></td>
                                 @else
                                     @if($post->begin != 0 && $post->finish - $post->begin >= 6 && $post->rest != 1)

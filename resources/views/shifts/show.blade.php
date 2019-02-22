@@ -106,6 +106,7 @@
                         <div class="form-group">
                             <td>
                                 {{$coment}}
+                                {{Form::hidden('coment[]', $coment)}}
                             </td>
                         </div>
                     @endif

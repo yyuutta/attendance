@@ -119,7 +119,7 @@ class ShiftsController extends Controller
                 'finish' => $request->out[$i],
                 'rest' => $request->rest[$i],
                 'work_time' => $request->out[$i] - $request->go[$i] - $request->rest[$i],
-                //'coment' => 'nothing',
+                'coment' => $request->coment[$i],
                 'absent' => 'nothing',
                 'note' => 'nothing']);
             }

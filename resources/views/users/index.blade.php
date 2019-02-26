@@ -53,19 +53,19 @@
                 @endif
                 <div class="day_height">
                 @if($date->dayOfWeek == 0 || $date->dayOfWeek == 6)
-                    <div class="day_height"><font color="lightgrey">{{$date->day}} {{$holidayname}}
-                    <p><br>スタッフ数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
-                    <br>総勤務時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
+                    <font color="lightgrey">{{$date->day}} {{$holidayname}}
+                    <p><br>総人数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
+                    <br>総時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
                     </font>
                 @else
                     @if($holidayname == null)
                         {!! link_to_route('users.monthly', $date->day, ['id' => $date->formatLocalized('%Y/%m/%d')]) !!}
-                        <p><br>スタッフ数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
-                        <br>総勤務時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
+                        <p><br>総人数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
+                        <br>総時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
                     @else
                         <font color="lightgrey">{{$date->day}} {{$holidayname}}
-                        <p><br>スタッフ数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
-                        <br>総勤務時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
+                        <p><br>総人数:{{$user_sum[$date->formatLocalized('%Y/%m/%d')]}}
+                        <br>総時間:{{$work_sum[$date->formatLocalized('%Y/%m/%d')]}}</p>
                         </font>
                     @endif
                 @endif

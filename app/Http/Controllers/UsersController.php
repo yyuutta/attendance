@@ -10,6 +10,8 @@ use App\Inform;
 use Carbon\Carbon;
 use \Yasumi\Yasumi;
 
+use DB;
+
 class UsersController extends Controller
 {
     public function index()
@@ -23,7 +25,28 @@ class UsersController extends Controller
             $year_add = $now->copy()->addYear();
             for($i=1; $i<=12; $i++) {
                 $dates[$i] = $user->getCalendarDates_year($now->year,$i);
+                
+                //日別のユーザー数と総合計労働時間数を取得
+                foreach ($dates[$i] as $date) {
+                    //総合計労働時間数
+                    $date_day = $date->formatLocalized('%Y/%m/%d');
+                    $work_sum[$date_day] = DB::table('posts')
+                        ->where('date_id', $date_day)
+                        ->where('begin', '<>', 0)
+                        ->sum('work_time');
+                    //ユーザー数
+                    $user_sum[$date_day] = DB::table('posts')
+                        ->where('date_id', $date_day)
+                        ->where('begin', '<>', 0)
+                        ->count('user_id');
+                    
+                    //var_dump($date_day);
+                    //var_dump($work_sum);
+                    //var_dump($user_sum);
+                }
             }
+            //exit;
+            
             $holidays = Yasumi::create('Japan', $year, 'ja_JP');
             
             return view('users.index', [
@@ -35,6 +58,8 @@ class UsersController extends Controller
                 'yaer_ago' => $yaer_ago,
                 'year_add' => $year_add,
                 'holidays' => $holidays,
+                'user_sum' => $user_sum,
+                'work_sum' => $work_sum,
             ]);
         } else {
             return redirect()->back();

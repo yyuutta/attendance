@@ -27,6 +27,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::resource('users', 'UsersController', ['only' => ['index', 'show', 'create', 'store', 'update', 'destroy']]);
     Route::get('monthly', 'UsersController@monthly')->name('users.monthly');
     Route::resource('posts', 'PostsController', ['only' => ['index', 'create', 'store']]);
-    Route::resource('informs', 'InformsController', ['only' => ['update']]);
+    Route::resource('informs', 'InformsController', ['only' => ['update','index']]);
     Route::resource('shifts', 'ShiftsController', ['only' => ['show', 'create', 'store']]);
 });

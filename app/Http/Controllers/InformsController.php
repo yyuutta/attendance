@@ -12,6 +12,24 @@ use \Yasumi\Yasumi;
 
 class InformsController extends Controller
 {
+    public function index()
+    {
+        $data = [];
+        $user = \Auth::user();
+        if ($user->authority == 2 || $user->authority == 1) {
+            $users = User::all();
+            $posts = Post::all();
+            $data = [
+                'user' => $user,
+                'users' => $users,
+                'posts' => $posts,
+            ];
+            return view('informs.index', $data);
+        }else {
+            return view('auth.login');
+        }
+    }
+    
     public function update(Request $request, $id)
     {
         $user = \Auth::user();

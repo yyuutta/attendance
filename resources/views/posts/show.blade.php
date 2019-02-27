@@ -41,15 +41,16 @@
                 <?php $rest = $post->rest; ?>
             @endif
         @endforeach
-                    
-        @if($go == 0 && $out or $rest > 0 || $go > 0 and $go == $out || $go > $out || $go == 0 && $out != 0 || $go == 0 && $out == 0 && $rest != 0 || $out - $go - $rest <= 0)
-　　        <p><font color="red">★不整合登録★{{$date->formatLocalized('%d(%a)')}}--訂正してください</font></p>
-        @endif
-        @if($go != 0 && $out - $go >= 6 && $rest != 1)
-            <p><font color="red">★休憩1ｈ必須★{{$date->formatLocalized('%d(%a)')}}--訂正してください</font></p>
+        @if($date->dayOfWeek != 0 && $date->dayOfWeek != 6)             
+            @if($go == 0 && $out or $rest > 0 || $go > 0 and $go == $out || $go > $out || $go == 0 && $out != 0 || $go == 0 && $out == 0 && $rest != 0 || $out - $go - $rest <= 0)
+    　　          <p><font color="red">★不整合登録★{{$date->formatLocalized('%d(%a)')}}--訂正or報告してください</font></p>
+            @else
+                @if($go != 0 && $out - $go >= 6 && $rest != 1)
+                    <p><font color="red">★休憩1ｈ必須★{{$date->formatLocalized('%d(%a)')}}--訂正or報告してください</font></p>
+                @endif
+            @endif
         @endif
     @endforeach
-    
     
     @if($year == $now->year && $now->day <= 21 && $month == $now->month + 1)
         {!! Form::submit('更新', ['class' => 'btn btn-danger btn-lg']) !!}
@@ -65,7 +66,7 @@
                 <th>出勤</th>
                 <th>退勤</th>
                 <th>休憩</th>
-            </th>
+            </tr>
             </thead>
             <tbody>
                 @foreach ($dates as $date)

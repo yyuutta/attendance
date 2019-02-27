@@ -17,6 +17,9 @@
                         <li class="dropdown">
                             {{-- <ul class="dropdown-menu"> --}}
                                 <li>{!! link_to_route('posts.index', Auth::user()->name) !!}</li>
+                                @if(Auth::user()->authority == 2 || Auth::user()->authority == 1)
+                                    <li>{!! link_to_route('informs.index', 'error') !!}</li>
+                                @endif
                                 @if(Auth::user()->authority == 2)
                                     <li>{!! link_to_route('login', 'Login') !!}</li>
                                     <li>{!! link_to_route('signup.get', 'Signup') !!}</li>

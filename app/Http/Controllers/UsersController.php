@@ -39,13 +39,8 @@ class UsersController extends Controller
                         ->where('date_id', $date_day)
                         ->where('begin', '<>', 0)
                         ->count('user_id');
-                    
-                    //var_dump($date_day);
-                    //var_dump($work_sum);
-                    //var_dump($user_sum);
                 }
             }
-            //exit;
             
             $holidays = Yasumi::create('Japan', $year, 'ja_JP');
             

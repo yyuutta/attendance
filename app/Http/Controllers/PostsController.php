@@ -95,7 +95,7 @@ class PostsController extends Controller
         $year_add = $now->copy()->addYear();
         $comment = Inform::first();
         $holidays = Yasumi::create('Japan', $year, 'ja_JP');
-        
+
         $data = [
             'user' => $user,
             'posts' => $posts,

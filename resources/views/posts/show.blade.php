@@ -106,7 +106,7 @@
                         </div>
                     @else
                         @include('posts.check', ['date' => $date, 'holidayname' => $holidayname])
-                        @if($year == $now->year && $now->day <= 21 && $month == $date->isNextMonth())
+                        @if($year == $now->year && $now->day <= 20 && $month == $date->isNextMonth())
                             @include('posts.posts_true', ['date' => $date])
                         @else
                             @include('posts.posts_false', ['date' => $date])

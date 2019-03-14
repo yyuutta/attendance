@@ -52,7 +52,7 @@
         @endif
     @endforeach
     
-    @if($year == $now->year && $now->day <= 21 && $month == $now->month + 1)
+    @if($year == $now->year && $now->day <= 20 && $month == $now->month + 1)
         {!! Form::submit('更新', ['class' => 'btn btn-danger btn-lg']) !!}
     @endif
         
